@@ -1,0 +1,26 @@
+ImportError: cannot import name 'url' from 'django.conf.urls' after upgrading to Django 4.0
+
+django.conf.urls.url() was deprecated in Django 3.0, and is removed in Django 4.0+.
+
+The easiest fix is to replace url() with re_path(). re_path uses regexes like url, so you only have to update the import and replace url with re_path.
+
+from django.urls import include, re_path
+from myapp.views import home
+
+urlpatterns = [
+    re_path(r'^$', home, name='home'),
+    re_path(r'^myapp/', include('myapp.urls'),
+]
+
+Alternatively, you could switch to using path. path() does not use regexes, so you'll have to update your URL patterns if you switch to path.
+
+from django.urls import include, path
+
+from myapp.views import home
+
+urlpatterns = [
+    path('', home, name='home'),
+    path('myapp/', include('myapp.urls'),
+]
+
+If you have a large project with many URL patterns to update, you may find the django-upgrade library useful to update your urls.py files.
