@@ -1,0 +1,6 @@
+No module named 'whitenoise.django' when whitenoise is installed already
+
+ans--------------
+
+You are installing at wrong place... probabily you are forgeting to create/install/activate your virtualenv in your docker container, 
+so when you login it installed globaly and your code in trying to find at VM, or you installed in VM and your code is lookings globaly.
